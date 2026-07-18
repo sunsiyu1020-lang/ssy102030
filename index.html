@@ -2,127 +2,357 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>系统提示</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>KALI SYSTEM</title>
 
 <style>
-body {
+
+*{
+    box-sizing:border-box;
+}
+
+body{
     margin:0;
     height:100vh;
     background:#000;
     color:#00ff66;
-    font-family:monospace;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    font-family:"Courier New",monospace;
     overflow:hidden;
 }
 
-.box {
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+.container{
+
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+.box{
+
     width:90%;
-    max-width:600px;
+    max-width:650px;
+
     border:1px solid #00ff66;
     padding:30px;
-    box-shadow:0 0 20px #00ff66;
-    text-align:center;
+
     background:rgba(0,0,0,.8);
+
+    box-shadow:
+    0 0 10px #00ff66,
+    0 0 30px #00ff66;
+
+    text-align:center;
+
 }
 
-h1 {
-    font-size:32px;
-    animation:blink 1s infinite;
+
+.logo{
+
+font-size:35px;
+font-weight:bold;
+
+animation:
+blink 1s infinite;
+
 }
 
-.text {
-    margin-top:20px;
-    font-size:18px;
-    line-height:2;
+
+.line{
+
+text-align:left;
+margin-top:25px;
+font-size:16px;
+line-height:2;
+
 }
 
-.progress {
-    width:100%;
-    height:20px;
-    border:1px solid #00ff66;
-    margin-top:20px;
+
+.loading{
+
+margin-top:20px;
+
+height:20px;
+
+border:1px solid #00ff66;
+
 }
 
-.bar {
-    height:100%;
-    width:0%;
-    background:#00ff66;
-    animation:load 5s forwards;
+
+.bar{
+
+height:100%;
+
+width:0%;
+
+background:#00ff66;
+
+animation:load 8s forwards;
+
 }
 
-button {
-    margin-top:25px;
-    padding:12px 30px;
-    background:#00ff66;
-    border:0;
-    cursor:pointer;
-    font-size:18px;
+
+.result{
+
+display:none;
+
+margin-top:25px;
+
+font-size:28px;
+
+color:red;
+
+text-shadow:
+0 0 10px red;
+
+animation:shake .3s infinite;
+
 }
 
-@keyframes load {
-    from {width:0%;}
-    to {width:99%;}
+
+button{
+
+margin-top:25px;
+
+padding:12px 35px;
+
+background:#00ff66;
+
+border:none;
+
+font-size:18px;
+
+cursor:pointer;
+
 }
 
-@keyframes blink {
-    50% {opacity:.3;}
+
+@keyframes load{
+
+from{width:0;}
+
+to{width:99%;}
+
 }
+
+
+@keyframes blink{
+
+50%{
+opacity:.3;
+}
+
+}
+
+
+@keyframes shake{
+
+0%{transform:translateX(0);}
+
+50%{transform:translateX(3px);}
+
+100%{transform:translateX(0);}
+
+}
+
+
 </style>
 
 </head>
 
+
 <body>
+
+
+<canvas id="matrix"></canvas>
+
+
+<div class="container">
+
 
 <div class="box">
 
-<h1>⚠ 系统提示</h1>
 
-<div class="text" id="msg">
-正在连接服务器...成功<br>
-正在分析设备...成功<br>
-正在加载模块...成功
+<div class="logo">
+
+☠ KALI SYSTEM BOOT
+
 </div>
 
-<div class="progress">
+
+<div class="line" id="terminal">
+
+>
+
+</div>
+
+
+<div class="loading">
+
 <div class="bar"></div>
+
 </div>
 
-<h2 style="margin-top:25px;">
-木马安装成功！
-</h2>
 
-<p>
-😂 哈哈哈，被骗了<br>
-这是一个很危险的链接
-</p >
+<div class="result" id="result">
 
-<button onclick="alert('恭喜你中招了，所有资料已备份 😂')">
-查看结果
+⚠ 木马安装成功！
+
+<br><br>
+
+😂 哈哈哈被骗了<br>
+
+这链接很危险
+
+</div>
+
+
+<button onclick="show()">
+
+查看状态
+
 </button>
 
+
 </div>
+
+
+</div>
+
 
 
 <script>
 
-let text=document.getElementById("msg");
 
-setTimeout(()=>{
-text.innerHTML+="<br>读取好友列表...完成";
-},1500);
+// 终端文字动画
 
-setTimeout(()=>{
-text.innerHTML+="<br>获取相册资料...完成";
-},3000);
+let terminal=document.getElementById("terminal");
 
-setTimeout(()=>{
-text.innerHTML+="<br>清除木马联系思宇Q：26279898 ";
-},4500);
+
+let logs=[
+
+"正在连接远程服务器...",
+
+"正在验证权限...",
+
+"正在加载隐藏模块...",
+
+"正在扫描系统文件...",
+
+"正在分析目标设备...",
+
+"正在扫描通讯录...",
+
+"正在扫描相册...",
+
+"备份完成..."
+
+];
+
+
+let i=0;
+
+
+function typeLine(){
+
+if(i<logs.length){
+
+terminal.innerHTML += "> "+logs[i]+"<br>";
+
+i++;
+
+setTimeout(typeLine,900);
+
+}
+
+}
+
+
+typeLine();
+
+
+
+function show(){
+
+document.getElementById("result").style.display="block";
+
+}
+
+
+
+// Matrix背景
+
+
+let canvas=document.getElementById("matrix");
+
+let ctx=canvas.getContext("2d");
+
+
+canvas.height=window.innerHeight;
+
+canvas.width=window.innerWidth;
+
+
+let chars="01アイウエオKALI";
+
+let drops=[];
+
+
+for(let x=0;x<canvas.width/18;x++){
+
+drops[x]=1;
+
+}
+
+
+function draw(){
+
+ctx.fillStyle="rgba(0,0,0,.08)";
+
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+
+ctx.fillStyle="#00ff66";
+
+ctx.font="18px monospace";
+
+
+for(let i=0;i<drops.length;i++){
+
+let text=chars[Math.floor(Math.random()*chars.length)];
+
+ctx.fillText(text,i*18,drops[i]*18);
+
+
+if(drops[i]*18>canvas.height && Math.random()>0.95){
+
+drops[i]=0;
+
+}
+
+
+drops[i]++;
+
+}
+
+}
+
+
+setInterval(draw,50);
+
+
 
 </script>
+
 
 </body>
 </html>
