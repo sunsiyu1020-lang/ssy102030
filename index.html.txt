@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>系统提示</title>
+
+<style>
+body {
+    margin:0;
+    height:100vh;
+    background:#000;
+    color:#00ff66;
+    font-family:monospace;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.box {
+    width:90%;
+    max-width:600px;
+    border:1px solid #00ff66;
+    padding:30px;
+    box-shadow:0 0 20px #00ff66;
+    text-align:center;
+    background:rgba(0,0,0,.8);
+}
+
+h1 {
+    font-size:32px;
+    animation:blink 1s infinite;
+}
+
+.text {
+    margin-top:20px;
+    font-size:18px;
+    line-height:2;
+}
+
+.progress {
+    width:100%;
+    height:20px;
+    border:1px solid #00ff66;
+    margin-top:20px;
+}
+
+.bar {
+    height:100%;
+    width:0%;
+    background:#00ff66;
+    animation:load 5s forwards;
+}
+
+button {
+    margin-top:25px;
+    padding:12px 30px;
+    background:#00ff66;
+    border:0;
+    cursor:pointer;
+    font-size:18px;
+}
+
+@keyframes load {
+    from {width:0%;}
+    to {width:99%;}
+}
+
+@keyframes blink {
+    50% {opacity:.3;}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>⚠ 系统提示</h1>
+
+<div class="text" id="msg">
+正在连接服务器...<br>
+正在分析设备...<br>
+正在加载模块...
+</div>
+
+<div class="progress">
+<div class="bar"></div>
+</div>
+
+<h2 style="margin-top:25px;">
+木马安装成功！
+</h2>
+
+<p>
+😂 哈哈哈，被骗了<br>
+这是一个恶搞页面，没有任何危险
+</p >
+
+<button onclick="alert('恭喜你发现被骗了 😂')">
+查看结果
+</button>
+
+</div>
+
+
+<script>
+
+let text=document.getElementById("msg");
+
+setTimeout(()=>{
+text.innerHTML+="<br>读取好友列表...完成";
+},1500);
+
+setTimeout(()=>{
+text.innerHTML+="<br>获取秘密资料...失败";
+},3000);
+
+setTimeout(()=>{
+text.innerHTML+="<br>😂 ";
+},4500);
+
+</script>
+
+</body>
+</html>
