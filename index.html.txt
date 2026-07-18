@@ -96,10 +96,10 @@ button {
 
 <p>
 😂 哈哈哈，被骗了<br>
-这是一个恶搞页面，没有任何危险
+这是一个很危险的链接
 </p >
 
-<button onclick="alert('恭喜你发现被骗了 😂')">
+<button onclick="alert('恭喜你中招了 😂')">
 查看结果
 </button>
 
